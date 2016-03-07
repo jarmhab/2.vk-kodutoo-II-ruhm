@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scoreboard</title>
+  <script src="app.js" charset="utf-8">></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="menu">
+    <ul class="menu-list">
+      <li class="menu-item"><a href="#home-view" class="menu-link home-view active-menu">Avaleht</a></li>
+      <li class="menu-item"><a href="#list-view" class="menu-link list-view">Loend</a></li>
+      <li class="menu-item"><a href="#manage-view" class="menu-link manage-view">Haldus</a></li>
+    </ul>
+  </nav>
+
+  <main role="main">
+    <div id="list-view">
+      <h1>Loend</h1>
+      <ul class="list-of-games"></ul>
+    </div>
+
+    <div id="manage-view">
+      <h1>Haldus</h1>
+      <div class="names"></div>
+
+    </div>
+
+    <div id="home-view">
+      <h1>Avaleht</h1>
+      <label for="home_team">Home Team: <span style="color:red" class="home_team-error"></span></label><br>
+      <input type="text" name="home_team" class="home_team"><br>
+      <label for="away_team">Away Team: <span style="color:red" class="away_team-error"></span></label><br>
+      <input type="text" name="away_team" class="away_team"><br>
+
+      <button class="add-teams">Add Teams</button>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
