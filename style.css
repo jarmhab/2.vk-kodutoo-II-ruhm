@@ -131,3 +131,15 @@ input {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     -webkit-tap-highlight-color: transparent;
 }
+
+.names {
+  color: red;
+  text-align: center;
+  font-size: 120px;
+  font-weight: bold;
+  font-family: verdana;
+  position: absolute;
+  top: 10%;
+  left: 30%;
+
+}

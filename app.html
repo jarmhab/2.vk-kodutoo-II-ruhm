@@ -23,7 +23,14 @@
 
     <div id="manage-view">
       <h1>Haldus</h1>
+      <button class="add-home" data-home="true">Home +1</button><br>
+      <button class="add-home-2" data-home="true">Home +2</button><br>
+      <button class="add-home-3" data-home="true">Home +3</button><br><br><br><br>
+      <button class="add-away" data-away="true">Away +1</button><br>
+      <button class="add-away-2" data-away="true">Away +2</button><br>
+      <button class="add-away-3" data-away="true">Away +3</button><br>
       <div class="names"></div>
+      <div class="scores"></div>
 
     </div>
 
@@ -33,6 +40,11 @@
       <input type="text" name="home_team" class="home_team"><br>
       <label for="away_team">Away Team: <span style="color:red" class="away_team-error"></span></label><br>
       <input type="text" name="away_team" class="away_team"><br>
+
+      <label for="home_team_score">Home Team starting score: <span style="color:red" class="home_team_score-error"></span></label><br>
+      <input type="number" name="home_team_score" class="home_team_score"><br>
+      <label for="away_team_score">Away Team starting score: <span style="color:red" class="away_team_score-error"></span></label><br>
+      <input type="number" name="away_team_score" class="away_team_score"><br>
 
       <button class="add-teams">Add Teams</button>
 
