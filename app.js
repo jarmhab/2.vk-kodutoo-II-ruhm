@@ -59,6 +59,21 @@
 
       }
 
+       //saan localStoragest kätte, kui on
+       if(localStorage.results){
+         //võtan stringi ja teen tagasi objektideks
+         this.results = JSON.parse(localStorage.saved_teams);
+      //   console.log('laadisin localStorageist massiiivi ' + this.saved_teams.length);
+
+         //tekitan htmli loendi
+          this.results.forEach(function(){
+        //    var new_teams = new Teams(teams.home, teams.away, teams.home_score, teams.away_score);
+            var li = this.createdTeam.createHtmlElement();
+            document.querySelector('.list-of-games').appendChild(li);
+          });
+       }
+
+
       this.bindMouseEvents();
 
     },
@@ -70,6 +85,14 @@
       document.querySelector('.add-away-2').addEventListener('click', this.update2.bind(this));
       document.querySelector('.add-home-3').addEventListener('click', this.update3.bind(this));
       document.querySelector('.add-away-3').addEventListener('click', this.update3.bind(this));
+      document.querySelector('.save').addEventListener('click', this.save.bind(this));
+    },
+    save: function(){
+      // this.results.push(this.createdTeams);
+      localStorage.setItem('results', JSON.stringify(this.createdTeam));
+      var li = this.createdTeam.createHtmlElement();
+      document.querySelector('.list-of-games').appendChild(li);
+
     },
     update: function(event){
       console.log(event.target.dataset);
@@ -102,13 +125,14 @@
 
     },
     addNewClick: function(event){
-      // lisa uus purk
+      // lisa uus
       var home_team = document.querySelector('.home_team').value;
       var away_team = document.querySelector('.away_team').value;
       var home_team_score = document.querySelector('.home_team_score').value;
       var away_team_score = document.querySelector('.away_team_score').value;
       console.log(home_team + '<------>' + away_team);
       console.log(home_team_score + '<------>' + away_team_score);
+
       if (home_team !== "" && away_team !== "" && home_team_score !== "" && away_team_score !== ""){
 
         var new_teams = new Teams(home_team, away_team, home_team_score, away_team_score);
@@ -192,8 +216,34 @@
   //   this.away = b;
   //   this.div = null;
   // };
+  // var List = function(createdTeam)
+  //
+  // List.prototype = {
+
+  // };
 
   Teams.prototype = {
+    createHtmlElement: function(){
+      var li = document.createElement('li');
+      var span = document.createElement('span');
+      span.className = 'letter';
+
+      var letter = document.createTextNode(this.home.charAt(0));
+      span.appendChild(letter);
+
+      li.appendChild(span);
+
+      var span_with_content = document.createElement('span');
+      span_with_content.className = 'content';
+
+      var content = document.createTextNode(this.home + ' ' + this.home_score + ' - ' + this.away_score + ' ' + this.away);
+      span_with_content.appendChild(content);
+
+      li.appendChild(span_with_content);
+
+      return li;
+    },
+
     generateDiv: function(){
       var div = document.createElement('div');
       div.innerHTML = this.home+" - "+this.away +'<br>';
