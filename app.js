@@ -12,6 +12,7 @@
     this.routes = ScoreBoard.routes;
     this.createdTeam = null;
     this.createdScore = null;
+    this.results = [];
 
     console.log(this);
 
@@ -62,7 +63,7 @@
        //saan localStoragest kätte, kui on
        if(localStorage.results){
          //võtan stringi ja teen tagasi objektideks
-         this.results = JSON.parse(localStorage.saved_teams);
+         this.results = JSON.parse(localStorage.results);
       //   console.log('laadisin localStorageist massiiivi ' + this.saved_teams.length);
 
          //tekitan htmli loendi
@@ -88,8 +89,8 @@
       document.querySelector('.save').addEventListener('click', this.save.bind(this));
     },
     save: function(){
-      // this.results.push(this.createdTeams);
-      localStorage.setItem('results', JSON.stringify(this.createdTeam));
+      this.results.push(this.createdTeams);
+      localStorage.setItem('results', JSON.stringify(this.results));
       var li = this.createdTeam.createHtmlElement();
       document.querySelector('.list-of-games').appendChild(li);
 
