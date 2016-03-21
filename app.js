@@ -96,11 +96,13 @@
       document.querySelector('.save').addEventListener('click', this.save.bind(this));
     },
     save: function(){
-      //this.results.push(this.createdTeam);
-      console.log(this.createdTeam);
-      localStorage.setItem('results', JSON.stringify(this.createdTeam));
+      var id = guid();
+      this.results.push(this.createdTeam);
+      console.log(this.createdTeam + id);
+      localStorage.setItem('results', JSON.stringify(this.results));
       var li = this.createdTeam.createHtmlElement();
       document.querySelector('.list-of-games').appendChild(li);
+      document.querySelector(".names").innerHTML="";
 
 
 
@@ -185,6 +187,7 @@
 
       document.querySelector("span.home_team-error").innerHTML="";
       document.querySelector("span.away_team-error").innerHTML="";
+
     },
     routeChange: function(event){
 
