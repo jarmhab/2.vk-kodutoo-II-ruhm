@@ -63,15 +63,22 @@
        //saan localStoragest kätte, kui on
        if(localStorage.results){
          //võtan stringi ja teen tagasi objektideks
-         this.results = JSON.parse(localStorage.results);
-      //   console.log('laadisin localStorageist massiiivi ' + this.saved_teams.length);
+         var l = JSON.parse(localStorage.results);
+         console.log(l);
+
+         //tekitan uuesti div'i jm tagasi
+         //l viitab localStorageile
+           this.createTeamsDivAndStuff(l.home, l.away, l.home_score, l.away_score);
+
+           var li = this.createdTeam.createHtmlElement();
+           document.querySelector('.list-of-games').appendChild(li);
 
          //tekitan htmli loendi
-          this.results.forEach(function(){
+          //this.results.forEach(function(){
         //    var new_teams = new Teams(teams.home, teams.away, teams.home_score, teams.away_score);
-            var li = this.createdTeam.createHtmlElement();
-            document.querySelector('.list-of-games').appendChild(li);
-          });
+            //var li = this.createdTeam.createHtmlElement();
+            //document.querySelector('.list-of-games').appendChild(li);
+          //});
        }
 
 
@@ -89,10 +96,13 @@
       document.querySelector('.save').addEventListener('click', this.save.bind(this));
     },
     save: function(){
-      this.results.push(this.createdTeams);
-      localStorage.setItem('results', JSON.stringify(this.results));
+      //this.results.push(this.createdTeam);
+      console.log(this.createdTeam);
+      localStorage.setItem('results', JSON.stringify(this.createdTeam));
       var li = this.createdTeam.createHtmlElement();
       document.querySelector('.list-of-games').appendChild(li);
+
+
 
     },
     update: function(event){
@@ -131,27 +141,14 @@
       var away_team = document.querySelector('.away_team').value;
       var home_team_score = document.querySelector('.home_team_score').value;
       var away_team_score = document.querySelector('.away_team_score').value;
+
       console.log(home_team + '<------>' + away_team);
       console.log(home_team_score + '<------>' + away_team_score);
 
       if (home_team !== "" && away_team !== "" && home_team_score !== "" && away_team_score !== ""){
 
-        var new_teams = new Teams(home_team, away_team, home_team_score, away_team_score);
-        //var new_scores = new Scores(home_team_score, away_team_score);
 
-        this.createdTeam = new_teams;
-        console.log(this.createdTeam);
-      //  this.createdScore = new_scores;
-
-        var div = new_teams.generateDiv();
-      //  var div2 = new_scores.generateDiv();
-
-        document.querySelector(".names").appendChild(div);
-      //  document.querySelector(".scores").appendChild(div2);
-
-
-        document.querySelector("span.home_team-error").innerHTML="";
-        document.querySelector("span.away_team-error").innerHTML="";
+        this.createTeamsDivAndStuff(home_team, away_team, home_team_score, away_team_score);
       } else {
 
         //mis oli tühi
@@ -169,6 +166,25 @@
 
 
 
+    },
+    createTeamsDivAndStuff: function(home_team, away_team, home_team_score, away_team_score){
+
+      var new_teams = new Teams(home_team, away_team, home_team_score, away_team_score);
+      //var new_scores = new Scores(home_team_score, away_team_score);
+
+      this.createdTeam = new_teams;
+      console.log(this.createdTeam);
+    //  this.createdScore = new_scores;
+
+      var div = new_teams.generateDiv();
+    //  var div2 = new_scores.generateDiv();
+
+      document.querySelector(".names").appendChild(div);
+    //  document.querySelector(".scores").appendChild(div2);
+
+
+      document.querySelector("span.home_team-error").innerHTML="";
+      document.querySelector("span.away_team-error").innerHTML="";
     },
     routeChange: function(event){
 
@@ -321,6 +337,26 @@
     //   }
     // }
 //  };
+
+
+  //DELETE nupp
+  var span_delete = document.createElement('span');
+  span_delete.style.color = "red";
+  span_delete.style.cursor = "pointer";
+
+  //HELPER
+   function guid(){
+    var d = new Date().getTime();
+    if(window.performance && typeof window.performance.now === "function"){
+        d += performance.now(); //use high-precision timer if available
+    }
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
 
   window.Teams = Teams;
 //  window.Scores = Scores;
