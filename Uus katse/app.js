@@ -57,6 +57,17 @@
          this.routeChange();
        }
 
+       //Siin saan asjad kätte localstorage'st
+       if(localStorage.entries){
+         this.entries = JSON.parse(localStorage.entries);
+
+         //Siin tekitan loendi
+         this.entries.forEach(function(entry){
+           var new_entry = new Entry(entry.id, entry.title, entry.team_1, entry.team_2, entry.result_1, entry.result_2);
+           var li = new_entry.createHtmlElement();
+           document.querySelector('.list-of-entries').appendChild(li);
+         });
+       }
        //Kuulan hiireklikke nupul
        this.bindEvents();
 
@@ -80,10 +91,6 @@
       localStorage.setItem('entries', JSON.stringify(this.entries));
       var li = new_entry.createHtmlElement();
       document.querySelector('.list-of-entries').appendChild(li);
-
-      // var li = new_entry.createHtmlElement();
-      // document.querySelector('.list-of-entries').appendChild(li);
-      // //document.querySelector("span.title-error").innerHTML="";
     },
     routeChange: function(event){
 
