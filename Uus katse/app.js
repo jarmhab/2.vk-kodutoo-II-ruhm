@@ -74,8 +74,9 @@
       var id = guid();
 
       var new_entry = new Entry(id, title, team_1, team_2, result_1, result_2);
-
-      
+      var li = new_entry.createHtmlElement();
+      document.querySelector('.list-of-entries').appendChild(li);
+      //document.querySelector("span.title-error").innerHTML="";
     },
     routeChange: function(event){
 
@@ -113,11 +114,35 @@
   var Entry = function(new_id, new_title, new_team_1, new_team_2, new_result_1, new_result_2){
     this.id = new_id;
     this.title = new_title;
-    this.new_team_1 = new_team_1;
-    this.new_team_2 = new_team_2;
-    this.new_result_1 = new_result_1;
-    this.new_result_2 = new_result_2;
+    this.team_1 = new_team_1;
+    this.team_2 = new_team_2;
+    this.result_1 = new_result_1;
+    this.result_2 = new_result_2;
     console.log('created new entry');
+  };
+
+  Entry.prototype = {
+    createHtmlElement: function(){
+      var li = document.createElement('li');
+
+      var span = document.createElement('span');
+      span.className = 'letter';
+
+      var letter = document.createTextNode(this.title.charAt(0));
+      span.appendChild(letter);
+
+      li.appendChild(span);
+
+      var span_with_content = document.createElement('span');
+      span_with_content.className = 'content';
+
+      var content = document.createTextNode(this.title + ' | ' + this.team_1 + ' - ' + this.team_2 + ' | ' + this.result_1 + ' - ' + this.result_2);
+      span_with_content.appendChild(content);
+      li.appendChild(span_with_content);
+      console.log(li);
+
+      return li;
+    }
   };
 
   //HELPER
