@@ -56,11 +56,27 @@
          //esimesel käivitamisel vaatame urli üle ja uuendame menüüd
          this.routeChange();
        }
-//SIIN JÄI POOLELI  
+
+       //Kuulan hiireklikke nupul
+       this.bindEvents();
 
     },//siin lõppeb init (mis peavad initi sees olema ja mis peavad siit väljas olema?)
 
+    bindEvents: function(){
+      document.querySelector('.add-new-entry').addEventListener('click', this.addNewClick.bind(this));
+    },
+    addNewClick: function(event){
+      var title = document.querySelector('.title').value;
+      var team_1 = document.querySelector('.team_1').value;
+      var team_2 = document.querySelector('.team_2').value;
+      var result_1 = document.querySelector('.result_1').value;
+      var result_2 = document.querySelector('.result_2').value;
+      var id = guid();
 
+      var new_entry = new Entry(id, title, team_1, team_2, result_1, result_2);
+
+      
+    },
     routeChange: function(event){
 
        //kirjutan muuutujasse lehe nime, võtan maha #
@@ -94,9 +110,33 @@
      }
   }; //Scoreboard'i lõpp
 
-  //Kui leht on laetud, käivitan Scoreboard rakenduse
-  window.onload = function(){
-    var app = new Scoreboard();
+  var Entry = function(new_id, new_title, new_team_1, new_team_2, new_result_1, new_result_2){
+    this.id = new_id;
+    this.title = new_title;
+    this.new_team_1 = new_team_1;
+    this.new_team_2 = new_team_2;
+    this.new_result_1 = new_result_1;
+    this.new_result_2 = new_result_2;
+    console.log('created new entry');
+  };
+
+  //HELPER
+    function guid(){
+      var d = new Date().getTime();
+    if(window.performance && typeof window.performance.now === "function"){
+        d += performance.now(); //use high-precision timer if available
+    }
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+    }
+
+    //Kui leht on laetud, käivitan Scoreboard rakenduse
+    window.onload = function(){
+      var app = new Scoreboard();
   };
 
 })();
