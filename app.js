@@ -63,15 +63,25 @@
        //saan localStoragest kätte, kui on
        if(localStorage.results){
          //võtan stringi ja teen tagasi objektideks
-         var l = JSON.parse(localStorage.results);
-         console.log(l);
+         var a = JSON.parse(localStorage.results);
+         console.log(a);
 
          //tekitan uuesti div'i jm tagasi
          //l viitab localStorageile
-           this.createTeamsDivAndStuff(l.home, l.away, l.home_score, l.away_score);
+         console.log(a[0]);
 
-           var li = this.createdTeam.createHtmlElement();
-           document.querySelector('.list-of-games').appendChild(li);
+
+            for(var i = 0; i < a.length; i++){
+              var l = a[i];
+
+              var team_from_ls = new Teams(l.home, l.away, l.home_score, l.away_score);
+
+              this.results.push(team_from_ls);
+              var li = team_from_ls.createHtmlElement();
+              document.querySelector('.list-of-games').appendChild(li);
+            }
+
+
 
          //tekitan htmli loendi
           //this.results.forEach(function(){
@@ -247,7 +257,7 @@
       var li = document.createElement('li');
       var span = document.createElement('span');
       span.className = 'letter';
-
+      console.log(this);
       var letter = document.createTextNode(this.home.charAt(0));
       span.appendChild(letter);
 
@@ -291,7 +301,7 @@
     },
     updateScore2: function(home_or_away){
       if(home_or_away == "home"){
-        this.home_score+=2;
+        this.home_score = parseInt(this.home_score) + 2;
       //  this.div.innerHTML = this.home+" - "+this.away;
         this.div.innerHTML = this.home+" - "+this.away +'<br>';
         this.div.innerHTML += this.home_score+" - "+this.away_score;
@@ -321,25 +331,6 @@
     },
 
   };
-
-  // Scores.prototype = {
-  //   generateDiv: function(){
-  //     var div = document.createElement('div');
-  //     div.innerHTML = this.home+" - "+this.away;
-  //     this.div = div;
-  //     console.log(div);
-  //     return div;
-  //   },
-    // updateScore: function(home_or_away){
-    //   if(home_or_away == "home"){
-    //     this.home++;
-    //     this.div.innerHTML = this.home+" - "+this.away;
-    //   }if(home_or_away == "away"){
-    //     this.away++;
-    //     this.div.innerHTML = this.home+" - "+this.away;
-    //   }
-    // }
-//  };
 
 
   //DELETE nupp
