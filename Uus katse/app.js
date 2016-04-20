@@ -14,7 +14,7 @@
     this.currentRoute = null;
 
     //Siin hoitakse tulemusi
-    this.results = [];
+    this.entries = [];
 
     this.init();
   };
@@ -74,9 +74,16 @@
       var id = guid();
 
       var new_entry = new Entry(id, title, team_1, team_2, result_1, result_2);
+      //Lisan andmed massiivi
+      this.entries.push(new_entry);
+      console.log(JSON.stringify(this.entries));
+      localStorage.setItem('entries', JSON.stringify(this.entries));
       var li = new_entry.createHtmlElement();
       document.querySelector('.list-of-entries').appendChild(li);
-      //document.querySelector("span.title-error").innerHTML="";
+
+      // var li = new_entry.createHtmlElement();
+      // document.querySelector('.list-of-entries').appendChild(li);
+      // //document.querySelector("span.title-error").innerHTML="";
     },
     routeChange: function(event){
 
