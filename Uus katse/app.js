@@ -76,6 +76,38 @@
     bindEvents: function(){
       document.querySelector('.add-new-entry').addEventListener('click', this.addNewClick.bind(this));
     },
+    deleteEntry: function(event){
+      //millele vajutati
+      console.log(event.target);
+      //tema parent ehk mille see ta on (li)
+      console.log(event.target.parentNode);
+      //mille sees omakorda see on (ul)
+      console.log(event.target.parentNode.parentNode);
+      //ID
+      console.log(event.target.dataset.id);
+
+      var c = confirm("Oled kindel?");
+      //kui ei ole kindel
+      if(!c){return;}
+      //Kustutan
+      console.log('kustutan');
+
+      //Kustutan Html'i
+      var ul = event.target.parentNode.parentNode;
+      var li = event.target.parentNode;
+      ul.removeChild(li);
+      var delete_id = event.target.dataset.id;
+
+      //Kustutan ka massiivist ja uuendan LocalStoraget
+      for(var i=0; i<this.entries.length; i++){
+        if(this.entries[i].id == delete_id){
+          //kustutan kohal [i]
+          this.entries.splice(i, 1);
+          break;
+        }
+      }
+      localStorage.setItem('entries', JSON.stringify(this.entries));
+    },
     addNewClick: function(event){
       var title = document.querySelector('.title').value;
       var team_1 = document.querySelector('.team_1').value;
@@ -153,7 +185,19 @@
       var content = document.createTextNode(this.title + ' | ' + this.team_1 + ' - ' + this.team_2 + ' | ' + this.result_1 + ' - ' + this.result_2);
       span_with_content.appendChild(content);
       li.appendChild(span_with_content);
-      console.log(li);
+      //console.log(li);
+
+      //Delete nupp
+      var span_delete = document.createElement('span');
+      span_delete.style.color = "red";
+      span_delete.style.cursor = "pointer";
+
+      //Panen kaasa ID
+      span_delete.setAttribute("data-id", this.id);
+      span_delete.innerHTML = " Delete";
+      li.appendChild(span_delete);
+
+      span_delete.addEventListener("click", Scoreboard.instance.deleteEntry.bind(Scoreboard.instance));
 
       return li;
     }
