@@ -116,13 +116,19 @@
       var result_2 = document.querySelector('.result_2').value;
       var id = guid();
 
-      var new_entry = new Entry(id, title, team_1, team_2, result_1, result_2);
-      //Lisan andmed massiivi
-      this.entries.push(new_entry);
-      console.log(JSON.stringify(this.entries));
-      localStorage.setItem('entries', JSON.stringify(this.entries));
-      var li = new_entry.createHtmlElement();
-      document.querySelector('.list-of-entries').appendChild(li);
+      if (title !== "" && team_1 !== "" && team_2 !== "" && result_1 !== "" && result_2 !== ""){
+
+        var new_entry = new Entry(id, title, team_1, team_2, result_1, result_2);
+        //Lisan andmed massiivi
+        this.entries.push(new_entry);
+        console.log(JSON.stringify(this.entries));
+        localStorage.setItem('entries', JSON.stringify(this.entries));
+        var li = new_entry.createHtmlElement();
+        document.querySelector('.list-of-entries').appendChild(li);
+        document.querySelector("span.error").innerHTML="";
+      }else{
+        document.querySelector("span.error").innerHTML="Kõik väljad on kohustuslikud";
+        }
     },
     routeChange: function(event){
 
