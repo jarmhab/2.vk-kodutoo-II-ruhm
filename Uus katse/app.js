@@ -125,7 +125,8 @@
         localStorage.setItem('entries', JSON.stringify(this.entries));
         var li = new_entry.createHtmlElement();
         document.querySelector('.list-of-entries').appendChild(li);
-        document.querySelector("span.error").innerHTML="";
+        //document.querySelector("span.error").innerHTML="";
+        window.location.reload(); //sellega puhastan väljad
       }else{
         document.querySelector("span.error").innerHTML="Kõik väljad on kohustuslikud";
         }
