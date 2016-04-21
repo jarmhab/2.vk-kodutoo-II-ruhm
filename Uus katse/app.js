@@ -109,7 +109,36 @@
       localStorage.setItem('entries', JSON.stringify(this.entries));
     },
     editEntry: function(event){
-      
+      var selected_id = event.target.dataset.id;
+      var clicked_li = event.target.parentNode;
+      $("#ModalEdit").modal({backdrop: true});
+
+      $(document).on("click", "#edit_close", function(event){
+        return;
+      });
+
+      $(document).on("click", "#save", function(event){
+        console.log(clicked_li);
+        var title = document.querySelector('.EditTitle').value;
+        var team_1 = document.querySelector('.EditTeam_1').value;
+        var team_2 = document.querySelector('.EditTeam_2').value;
+        var result_1 = document.querySelector('.EditResult_1').value;
+        var result_2 = document.querySelector('.EditResult_2').value;
+        this.entries = JSON.parse(localStorage.entries);
+        clicked_li.parentNode.removeChild(clicked_li);
+        for(var i=0; i<this.entries.length; i++){
+          if(this.entries[i].id == selected_id){
+            this.entries[i].title = title;
+            this.entries[i].team_1 = team_1;
+            this.entries[i].team_2 = team_2;
+            this.entries[i].result_1 = result_1;
+            this.entries[i].result_2 = result_2;
+            break;
+          }
+        }
+        localStorage.setItem('entries', JSON.stringify(this.entries));
+        location.reload();
+      });
     },
     addNewClick: function(event){
       var title = document.querySelector('.title').value;
@@ -216,6 +245,7 @@
       span_edit.setAttribute("data-id", this.id);
       span_edit.innerHTML = " Edit";
       li.appendChild(span_edit);
+      span_edit.addEventListener('click', Scoreboard.instance.editEntry.bind(Scoreboard.instance));
 
       return li;
     }

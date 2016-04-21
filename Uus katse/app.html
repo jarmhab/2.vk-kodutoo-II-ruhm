@@ -5,6 +5,11 @@
   <title>Scoreboard v0.2</title>
   <script src="app.js" charset="utf-8"></script>
   <link rel="stylesheet" href="style.css">
+  <!--Järgnevad read pärinevad siit lingilt: http://www.w3schools.com/bootstrap/bootstrap_modal.asp
+      Nendeni juhatas mind Rimo Esko  -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -21,36 +26,95 @@
       <div id="list-view">
       <h1>Loend</h1>
       <ul class="list-of-entries"></ul>
-    </div>
 
-    <div id="manage-view">
-      <h1>Haldus</h1>
 
-      <label for="title">Võistuse nimi: <span style="color:red" class="error"></label><br>
-      <input type="text" name="title" class="title"><br>
+      <!-- Edit -->
+      <!-- Modal -->
+      <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close"
+                       data-dismiss="modal">
+                           <span aria-hidden="true">&times;</span>
+                           <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Edit</h4>
+                </div>
 
-      <label for="team_1">1. võistleja nimi: </label><br>
-      <input type="text" name="team_1" class="team_1"><br>
+                <!-- Modal Body -->
+                <div class="modal-body">
 
-      <label for="team_2">2. võistleja nimi: </label><br>
-      <input type="text" name="team_2" class="team_2"><br>
+                    <form class="form-horizontal" role="form">
+                      <div class="form-group">
+                        <label  class="col-sm-2 control-label" for="EditTitle">Võistluse nimi</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="EditTitle" class="EditTitle" placeholder="Võistluse nimi">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="EditTeam_1" >1. võistleja nimi</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="EditTeam_1" class="EditTeam_1" placeholder="1. võistleja nimi">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="EditTeam_2" >2. võistleja nimi</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="EditTeam_2" class="EditTeam_2" placeholder="2. võistleja nimi">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="EditResult_1" >1. võistleja punktid</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="EditResult_1" class="EditResult_1" placeholder="1. võistleja punktid">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="EditResult_2" >2. võistleja punktid</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="EditResult_2" class="EditResult_2" placeholder="2. võistleja punktid">
+                        </div>
+                      </div>
 
-      <label for="result_1">1. võistleja punktid: </label><br>
-      <input type="number" name="result_1" class="result_1"><br>
+                    <button id="edit_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="save" type="button" class="btn btn-primary btn pull-right" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      </div>
 
-      <label for="result_2">2. võistleja punktid: </label><br>
-      <input type="number" name="result_2" class="result_2"><br>
+      <div id="manage-view">
+        <h1>Haldus</h1>
 
-      <button class="add-new-entry pull-right">Lisa uus tulemus</button>
-    </div>
+        <label for="title">Võistuse nimi: <span style="color:red" class="error"></label><br>
+        <input type="text" name="title" class="title"><br>
 
-    <div id="home-view">
-      <h1>Avaleht</h1>
-      <h2>Kodune töö nr 2</h2>
-      <p>Antud rakendusega saab salvestada mingeid sportlike tulemusi. Selleks tuleb halduse lehel täita väljad. Esimesse lahtrisse kirjutatakse mängu või võistluse nimetus (näiteks bowling või korvpall vms)
-      Järgnevates lahtrites tuleb sisestada inimeste või võistkondade nimed ja viimases kahes lahtris tulemused(punktid).  Toon näite: mängisid sõbraga 3 malepartiid - sina võitsid kaks mängu, sõber võitis ühe mängu.
-     Siia lehele saab kirja panna, et mängisite malet ja seis jäi 2-1. Siis on hästi meeles ja kui sõber hakkab hiljem vaidlema, et tema võitis, siis saab siia vaatama tulla ja kontrollida, kes mitu mängu võitis :)</p>
-    </div>
+        <label for="team_1">1. võistleja nimi: </label><br>
+        <input type="text" name="team_1" class="team_1"><br>
+
+        <label for="team_2">2. võistleja nimi: </label><br>
+        <input type="text" name="team_2" class="team_2"><br>
+
+        <label for="result_1">1. võistleja punktid: </label><br>
+        <input type="number" name="result_1" class="result_1"><br>
+
+        <label for="result_2">2. võistleja punktid: </label><br>
+        <input type="number" name="result_2" class="result_2"><br>
+
+        <button class="add-new-entry pull-right">Lisa uus tulemus</button>
+      </div>
+
+      <div id="home-view">
+        <h1>Avaleht</h1>
+        <h2>Kodune töö nr 2</h2>
+        <p>Antud rakendusega saab salvestada mingeid sportlike tulemusi. Selleks tuleb halduse lehel täita väljad. Esimesse lahtrisse kirjutatakse mängu või võistluse nimetus (näiteks bowling või korvpall vms)
+        Järgnevates lahtrites tuleb sisestada inimeste või võistkondade nimed ja viimases kahes lahtris tulemused(punktid).  Toon näite: mängisid sõbraga 3 malepartiid - sina võitsid kaks mängu, sõber võitis ühe mängu.
+       Siia lehele saab kirja panna, et mängisite malet ja seis jäi 2-1. Siis on hästi meeles ja kui sõber hakkab hiljem vaidlema, et tema võitis, siis saab siia vaatama tulla ja kontrollida, kes mitu mängu võitis :)</p>
+      </div>
 
   </main>
 </body>
