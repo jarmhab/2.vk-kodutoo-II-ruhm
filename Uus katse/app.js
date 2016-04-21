@@ -108,6 +108,9 @@
       }
       localStorage.setItem('entries', JSON.stringify(this.entries));
     },
+    editEntry: function(event){
+      
+    },
     addNewClick: function(event){
       var title = document.querySelector('.title').value;
       var team_1 = document.querySelector('.team_1').value;
@@ -126,7 +129,7 @@
         var li = new_entry.createHtmlElement();
         document.querySelector('.list-of-entries').appendChild(li);
         //document.querySelector("span.error").innerHTML="";
-        window.location.reload(); //sellega puhastan väljad
+        window.location.reload(); //sellega puhastan väljad. avastasin, et mozillaga ei puhasta reloadimine väljasid ära.
       }else{
         document.querySelector("span.error").innerHTML="Kõik väljad on kohustuslikud";
         }
@@ -205,6 +208,14 @@
       li.appendChild(span_delete);
 
       span_delete.addEventListener("click", Scoreboard.instance.deleteEntry.bind(Scoreboard.instance));
+
+      //Edit nupp
+      var span_edit = document.createElement('span');
+      span_edit.style.color = "blue";
+      span_edit.style.cursor = "pointer";
+      span_edit.setAttribute("data-id", this.id);
+      span_edit.innerHTML = " Edit";
+      li.appendChild(span_edit);
 
       return li;
     }
