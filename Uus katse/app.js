@@ -113,6 +113,20 @@
       var clicked_li = event.target.parentNode;
       $("#ModalEdit").modal({backdrop: true});
 
+      for(var i=0; i<this.entries.length; i++){
+        if(this.entries[i].id == selected_id){
+
+          document.querySelector('.EditTitle').value = this.entries[i].title;
+          document.querySelector('.EditTeam_1').value = this.entries[i].team_1;
+          document.querySelector('.EditTeam_2').value = this.entries[i].team_2;
+          document.querySelector('.EditResult_1').value =this.entries[i].result_1;
+          document.querySelector('.EditResult_2').value = this.entries[i].result_2;
+
+          break;
+        }
+      }
+
+
       $(document).on("click", "#edit_close", function(event){
         return;
       });
